@@ -46,7 +46,6 @@
         .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
         .header p { font-size: 1.1rem; opacity: 0.9; }
 
-        /* Project Grid - Ready for more cards later */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -64,6 +63,9 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
@@ -111,14 +113,14 @@
 <body>
 
     <header class="header">
-        <h1>Project Portfolio</h1>
-        <p>A collection of my recent work and documentation</p>
+        <h1>Andrew Greig | Project Portfolio</h1>
+        <p>A collection of my recent work and projects</p>
     </header>
 
     <main class="project-grid">
         <article class="card">
-            <h2>MBSE Presentation</h2>
-            <p>An overview of Model-Based Systems Engineering methodologies and architectural frameworks.</p>
+            <h2>MBSE & Aerospace Systems</h2>
+            <p>An application of SysML in the definition of a future iteration of the F-35.</p>
             <a href="https://andrew-greig.github.io/MBSE-Presentation.pdf" 
                class="btn" 
                target="_blank" 
@@ -127,7 +129,17 @@
             </a>
         </article>
 
-        </main>
+        <article class="card">
+            <h2>FTE Performance Data Analysis</h2>
+            <p>Comprehensive analysis of full-time equivalent performance metrics and data-driven insights.</p>
+            <a href="https://andrew-greig.github.io/FTE Performance Data Analysis.pdf" 
+               class="btn" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                View Project
+            </a>
+        </article>
+    </main>
 
     <footer>
         &copy; 2026 Andrew Greig
