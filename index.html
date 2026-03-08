@@ -28,6 +28,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            overflow-x: hidden;
         }
 
         @keyframes gradient {
@@ -68,21 +69,10 @@
             justify-content: space-between;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+        .card:hover { transform: translateY(-5px); }
 
-        .card h2 {
-            color: #1e293b;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .card p {
-            color: #64748b;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+        .card h2 { color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; }
+        .card p { color: #64748b; margin-bottom: 2rem; line-height: 1.6; }
 
         .btn {
             display: inline-block;
@@ -94,11 +84,82 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            cursor: pointer;
+            border: none;
         }
 
         .btn:hover {
             background: #1d4ed8;
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 0;
+            width: 90%;
+            height: 90%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Spinner Styles */
+        .loader-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
         }
 
         footer {
@@ -121,25 +182,30 @@
         <article class="card">
             <h2>MBSE & Aerospace Systems</h2>
             <p>An application of SysML in the definition of a future iteration of the F-35.</p>
-            <a href="https://andrew-greig.github.io/projects/MBSE-Presentation.pdf" 
-               class="btn" 
-               target="_blank" 
-               rel="noopener noreferrer">
+            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/MBSE-Presentation.pdf')">
                 View Project
-            </a>
+            </button>
         </article>
 
         <article class="card">
             <h2>FTE Performance Data Analysis</h2>
             <p>Comprehensive analysis of full-time equivalent performance metrics and data-driven insights.</p>
-            <a href="https://andrew-greig.github.io/projects/FTE Performance Data Analysis.pdf" 
-               class="btn" 
-               target="_blank" 
-               rel="noopener noreferrer">
+            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/FTE Performance Data Analysis.pdf')">
                 View Project
-            </a>
+            </button>
         </article>
     </main>
+
+    <div id="pdfModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div id="loader" class="loader-container">
+                <div class="loader"></div>
+                <p style="margin-top: 10px; color: #64748b;">Loading PDF...</p>
+            </div>
+            <iframe id="pdfFrame" src="" onload="hideLoader()"></iframe>
+        </div>
+    </div>
 
     <footer>
         &copy; <span id="year"></span> Andrew Greig
@@ -147,6 +213,33 @@
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        const modal = document.getElementById("pdfModal");
+        const frame = document.getElementById("pdfFrame");
+        const loader = document.getElementById("loader");
+
+        function openModal(url) {
+            loader.style.display = "flex";
+            frame.src = url;
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function hideLoader() {
+            loader.style.display = "none";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            frame.src = "";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 
 </body>
