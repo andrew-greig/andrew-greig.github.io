@@ -70,7 +70,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
         }
 
@@ -126,14 +126,16 @@
 
         .modal-content {
             position: relative;
-            background-color: #fefefe;
+            background-color: #fff;
             margin: 2% auto;
-            padding: 0;
             width: 90%;
             height: 90%;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .loader-container {
@@ -170,6 +172,7 @@
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
         iframe {
@@ -177,6 +180,7 @@
             height: 100%;
             border: none;
             background: white;
+            display: block;
         }
 
         footer {
@@ -200,6 +204,14 @@
 
     <main class="project-grid">
         <article class="card">
+            <h2>SAP & Smartsheet Integration</h2>
+            <p>C# app to streamline monthly financial report generation with Smartsheet API integration.</p>
+            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/SAP%20%26%20Smartsheet.png')">
+                View Project
+            </button>
+        </article>
+
+        <article class="card">
             <h2>MBSE & Aerospace Systems</h2>
             <p>An application of SysML in the definition of a future iteration of the F-35.</p>
             <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/MBSE-Presentation.pdf')">
@@ -210,15 +222,7 @@
         <article class="card">
             <h2>FTE Performance Data Analysis</h2>
             <p>Analysis of performance metrics and data collected on a Cessna-182 test flight.</p>
-            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/FTE Performance Data Analysis.pdf')">
-                View Project
-            </button>
-        </article>
-
-        <article class="card">
-            <h2>SAP & Smartsheet Integration</h2>
-            <p>C# app to streamline monthly financial report generation with Smartsheet API integration.</p>
-            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/SAP & Smartsheet.png')">
+            <button class="btn" onclick="openModal('https://andrew-greig.github.io/projects/FTE%20Performance%20Data%20Analysis.pdf')">
                 View Project
             </button>
         </article>
@@ -226,10 +230,10 @@
 
     <div id="pdfModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
-        <div class="modal-content">
+        <div class="modal-content" id="modalContent">
             <div id="loader" class="loader-container">
                 <div class="loader"></div>
-                <p style="margin-top: 10px; color: #64748b;">Loading PDF...</p>
+                <p style="margin-top: 10px; color: #64748b;">Loading Content...</p>
             </div>
             <iframe id="pdfFrame" src="" onload="hideLoader()"></iframe>
         </div>
@@ -243,12 +247,27 @@
         document.getElementById("year").textContent = new Date().getFullYear();
 
         const modal = document.getElementById("pdfModal");
+        const modalContent = document.getElementById("modalContent");
         const frame = document.getElementById("pdfFrame");
         const loader = document.getElementById("loader");
 
         function openModal(url) {
             loader.style.display = "flex";
             frame.src = url;
+            
+            // Adjust modal dimensions based on file type
+            if (url.toLowerCase().endsWith('.png')) {
+                // For the 781x589 image, use specific aspect ratio to prevent empty space
+                modalContent.style.width = 'min(90%, 800px)';
+                modalContent.style.height = 'auto';
+                modalContent.style.aspectRatio = '781 / 589';
+            } else {
+                // Standard size for PDFs
+                modalContent.style.width = '90%';
+                modalContent.style.height = '90%';
+                modalContent.style.aspectRatio = 'auto';
+            }
+
             modal.style.display = "block";
             document.body.style.overflow = "hidden";
         }
