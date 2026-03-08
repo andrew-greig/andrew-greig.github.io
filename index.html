@@ -6,9 +6,13 @@
     <title>Project Portfolio | Andrew Greig</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --bg-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            --glass: rgba(255, 255, 255, 0.9);
+            --primary: #3b82f6;
+            /* Darker, deeper gradient theme */
+            --bg-gradient: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e293b);
+            /* Darker glass effect */
+            --glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -29,6 +33,7 @@
             justify-content: center;
             padding: 2rem;
             overflow-x: hidden;
+            color: var(--text-main);
         }
 
         @keyframes gradient {
@@ -39,9 +44,9 @@
 
         .header {
             text-align: center;
-            color: white;
+            color: var(--text-main);
             margin-bottom: 2.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
         }
 
         .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
@@ -50,19 +55,19 @@
         .linkedin-link {
             display: inline-flex;
             align-items: center;
-            color: white;
+            color: var(--text-main);
             text-decoration: none;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             padding: 0.5rem 1.2rem;
             border-radius: 50px;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             font-weight: 500;
         }
 
         .linkedin-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
         }
 
@@ -76,22 +81,25 @@
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .card:hover { transform: translateY(-5px); }
+        .card:hover { 
+            transform: translateY(-5px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-        .card h2 { color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; }
-        .card p { color: #64748b; margin-bottom: 2rem; line-height: 1.6; }
+        .card h2 { color: var(--text-main); margin-bottom: 1rem; font-size: 1.5rem; }
+        .card p { color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6; }
 
         .btn {
             display: inline-block;
@@ -102,14 +110,14 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             border: none;
         }
 
         .btn:hover {
-            background: #1d4ed8;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+            background: #2563eb;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .modal {
@@ -120,8 +128,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
@@ -129,7 +137,7 @@
             margin: 2% auto;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,7 +156,7 @@
         }
 
         .loader {
-            border: 5px solid #f3f3f3;
+            border: 5px solid #1e293b;
             border-top: 5px solid var(--primary);
             border-radius: 50%;
             width: 50px;
@@ -187,7 +195,7 @@
         footer {
             margin-top: auto;
             padding: 2rem;
-            color: white;
+            color: var(--text-muted);
             font-size: 0.9rem;
             opacity: 0.8;
         }
@@ -234,7 +242,7 @@
         <div class="modal-content" id="modalContent">
             <div id="loader" class="loader-container">
                 <div class="loader"></div>
-                <p style="margin-top: 10px; color: #64748b;">Loading...</p>
+                <p style="margin-top: 10px; color: #94a3b8;">Loading...</p>
             </div>
             <iframe id="pdfFrame" src="" onload="hideLoader()" style="display: none;"></iframe>
             <img id="imageViewer" src="" onload="hideLoader()" style="display: none;">
@@ -262,7 +270,6 @@
             imageViewer.src = "";
             
             if (url.toLowerCase().endsWith('.png')) {
-                // Image handling: use <img> tag and specific dimensions
                 imageViewer.src = url;
                 imageViewer.style.display = "block";
                 modalContent.style.width = 'min(90%, 781px)';
@@ -270,7 +277,6 @@
                 modalContent.style.aspectRatio = '781 / 589';
                 modalContent.style.background = "transparent"; 
             } else {
-                // PDF handling: use <iframe> tag
                 frame.src = url;
                 frame.style.display = "block";
                 modalContent.style.width = '90%';
