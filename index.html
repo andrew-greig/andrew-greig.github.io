@@ -120,22 +120,20 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.85);
             backdrop-filter: blur(5px);
         }
 
         .modal-content {
             position: relative;
-            background-color: #fff;
             margin: 2% auto;
-            width: 90%;
-            height: 90%;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 30px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .loader-container {
@@ -175,12 +173,15 @@
             text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        iframe {
+        iframe, #imageViewer {
             width: 100%;
             height: 100%;
             border: none;
-            background: white;
             display: block;
+        }
+
+        #imageViewer {
+            object-fit: contain;
         }
 
         footer {
@@ -233,9 +234,10 @@
         <div class="modal-content" id="modalContent">
             <div id="loader" class="loader-container">
                 <div class="loader"></div>
-                <p style="margin-top: 10px; color: #64748b;">Loading Content...</p>
+                <p style="margin-top: 10px; color: #64748b;">Loading...</p>
             </div>
-            <iframe id="pdfFrame" src="" onload="hideLoader()"></iframe>
+            <iframe id="pdfFrame" src="" onload="hideLoader()" style="display: none;"></iframe>
+            <img id="imageViewer" src="" onload="hideLoader()" style="display: none;">
         </div>
     </div>
 
@@ -249,23 +251,32 @@
         const modal = document.getElementById("pdfModal");
         const modalContent = document.getElementById("modalContent");
         const frame = document.getElementById("pdfFrame");
+        const imageViewer = document.getElementById("imageViewer");
         const loader = document.getElementById("loader");
 
         function openModal(url) {
             loader.style.display = "flex";
-            frame.src = url;
+            frame.style.display = "none";
+            imageViewer.style.display = "none";
+            frame.src = "";
+            imageViewer.src = "";
             
-            // Adjust modal dimensions based on file type
             if (url.toLowerCase().endsWith('.png')) {
-                // For the 781x589 image, use specific aspect ratio to prevent empty space
-                modalContent.style.width = 'min(90%, 800px)';
+                // Image handling: use <img> tag and specific dimensions
+                imageViewer.src = url;
+                imageViewer.style.display = "block";
+                modalContent.style.width = 'min(90%, 781px)';
                 modalContent.style.height = 'auto';
                 modalContent.style.aspectRatio = '781 / 589';
+                modalContent.style.background = "transparent"; 
             } else {
-                // Standard size for PDFs
+                // PDF handling: use <iframe> tag
+                frame.src = url;
+                frame.style.display = "block";
                 modalContent.style.width = '90%';
                 modalContent.style.height = '90%';
                 modalContent.style.aspectRatio = 'auto';
+                modalContent.style.background = "#fff";
             }
 
             modal.style.display = "block";
@@ -279,6 +290,7 @@
         function closeModal() {
             modal.style.display = "none";
             frame.src = "";
+            imageViewer.src = "";
             document.body.style.overflow = "auto";
         }
 
@@ -288,6 +300,5 @@
             }
         }
     </script>
-
 </body>
 </html>
