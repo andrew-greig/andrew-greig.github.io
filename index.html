@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBSE Presentation | Andrew Greig</title>
+    <title>Project Portfolio | Andrew Greig</title>
     <style>
         :root {
             --primary: #2563eb;
-            --accent: #60a5fa;
             --bg-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
             background: var(--bg-gradient);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #333;
+            padding: 2rem;
         }
 
         @keyframes gradient {
@@ -35,77 +36,102 @@
             100% { background-position: 0% 50%; }
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        .header {
             text-align: center;
-            max-width: 500px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* Project Grid - Ready for more cards later */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
             color: #1e293b;
-            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
-        p {
+        .card p {
             color: #64748b;
             margin-bottom: 2rem;
-            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .btn {
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 12px 32px;
+            padding: 0.8rem 2rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
         .btn:hover {
             background: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(0);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
         }
 
         footer {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #94a3b8;
+            margin-top: auto;
+            padding: 2rem;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Model-Based Systems Engineering</h1>
-        <p>Explore the latest presentation on MBSE methodologies and systems architecture.</p>
-        
-        <a href="https://andrew-greig.github.io/MBSE-Presentation.pdf" 
-           class="btn" 
-           target="_blank" 
-           rel="noopener noreferrer">
-            View Presentation
-        </a>
+    <header class="header">
+        <h1>Project Portfolio</h1>
+        <p>A collection of my recent work and documentation</p>
+    </header>
 
-        <footer>
-            &copy; 2026 Andrew Greig
-        </footer>
-    </div>
+    <main class="project-grid">
+        <article class="card">
+            <h2>MBSE Presentation</h2>
+            <p>An overview of Model-Based Systems Engineering methodologies and architectural frameworks.</p>
+            <a href="https://andrew-greig.github.io/MBSE-Presentation.pdf" 
+               class="btn" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                View Project
+            </a>
+        </article>
+
+        </main>
+
+    <footer>
+        &copy; 2026 Andrew Greig
+    </footer>
 
 </body>
 </html>
