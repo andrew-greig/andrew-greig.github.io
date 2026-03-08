@@ -121,7 +121,7 @@
         <article class="card">
             <h2>MBSE & Aerospace Systems</h2>
             <p>An application of SysML in the definition of a future iteration of the F-35.</p>
-            <a href="https://andrew-greig.github.io/MBSE-Presentation.pdf" 
+            <a href="https://andrew-greig.github.io/projects/MBSE-Presentation.pdf" 
                class="btn" 
                target="_blank" 
                rel="noopener noreferrer">
@@ -132,7 +132,7 @@
         <article class="card">
             <h2>FTE Performance Data Analysis</h2>
             <p>Comprehensive analysis of full-time equivalent performance metrics and data-driven insights.</p>
-            <a href="https://andrew-greig.github.io/FTE Performance Data Analysis.pdf" 
+            <a href="https://andrew-greig.github.io/projects/FTE Performance Data Analysis.pdf" 
                class="btn" 
                target="_blank" 
                rel="noopener noreferrer">
@@ -142,8 +142,12 @@
     </main>
 
     <footer>
-        &copy; 2026 Andrew Greig
+        &copy; <span id="year"></span> Andrew Greig
     </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
 </body>
 </html>
